@@ -1,0 +1,12 @@
+# SPDX-License-Identifier: BSD-3-Clause
+# Copyright (c) !YEAR! - Present !AUTHOR!
+# All rights reserved.
+
+@PACKAGE_INIT@
+
+include(${CMAKE_CURRENT_LIST_DIR}/!PROJECT_NAME:lower!Targets.cmake)
+
+set_and_check(!PROJECT_NAME:lower!_INCLUDE_DIR "@PACKAGE_CMAKE_INSTALL_INCLUDEDIR@")
+set_and_check(!PROJECT_NAME:lower!_BIN_DIR "@PACKAGE_CMAKE_INSTALL_BINDIR@")
+set(!PROJECT_NAME:lower!_LIBRARIES !PROJECT_NAME:lower!::!PROJECT_NAME:lower!)
+check_required_components(!PROJECT_NAME:lower!)
