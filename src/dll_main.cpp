@@ -1,10 +1,10 @@
-#include "stdromano/stdromano.h"
+#include "!PROJECT_NAME=lower!/!PROJECT_NAME=lower!.h"
 
 #include <cstdio>
 
-#if defined(STDROMANO_WIN)
+#if defined(!PROJECT_NAME=upper!_WIN)
 #include <Windows.h>
-#endif // defined(STDROMANO_WIN)
+#endif // defined(!PROJECT_NAME=upper!_WIN)
 
 /* 
    In this source file we execute all functions that need to be executed at runtime to check and
@@ -14,21 +14,21 @@
    lib_exit is executed on dlclose / CloseLibrary
 */
 
-void STDROMANO_LIB_ENTRY lib_entry(void)
+void !PROJECT_NAME=upper!_LIB_ENTRY lib_entry(void)
 {
-#if STDROMANO_DEBUG
-    std::printf("stdromano entry\n");
-#endif // STDROMANO_DEBUG
+#if !PROJECT_NAME=upper!_DEBUG
+    std::printf("!PROJECT_NAME=lower! entry\n");
+#endif // !PROJECT_NAME=upper!_DEBUG
 }
 
-void STDROMANO_LIB_EXIT lib_exit(void)
+void !PROJECT_NAME=upper!_LIB_EXIT lib_exit(void)
 {
-#if STDROMANO_DEBUG
-    std::printf("stdromano exit\n");
-#endif // STDROMANO_DEBUG
+#if !PROJECT_NAME=upper!_DEBUG
+    std::printf("!PROJECT_NAME=lower! exit\n");
+#endif // !PROJECT_NAME=upper!_DEBUG
 }
 
-#if defined(STDROMANO_WIN)
+#if defined(!PROJECT_NAME=upper!_WIN)
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) 
 {
     switch (ul_reason_for_call) {
@@ -48,4 +48,4 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserv
 
     return TRUE;
 }
-#endif // defined(STDROMANO_WIN)
+#endif // defined(!PROJECT_NAME=upper!_WIN)

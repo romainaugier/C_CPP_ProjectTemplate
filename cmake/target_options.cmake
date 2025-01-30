@@ -4,7 +4,7 @@
 
 function(set_target_options target_name)
     if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-        set(!PROJECT_NAME:upper!_CLANG 1)
+        set(!PROJECT_NAME=upper!_CLANG 1)
         set(CMAKE_C_FLAGS "-Wall -pedantic-errors")
 
         target_compile_options(${target_name} PRIVATE $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=leak -fsanitize=address>)
@@ -12,7 +12,7 @@ function(set_target_options target_name)
 
         target_link_options(${target_name} PRIVATE $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=address>)
     elseif (CMAKE_C_COMPILER_ID STREQUAL "GNU")
-        set(!PROJECT_NAME:upper!_GCC 1)
+        set(!PROJECT_NAME=upper!_GCC 1)
         set(CMAKE_C_FLAGS "-D_FORTIFY_SOURCES=2 -pipe -Wall -pedantic-errors")
 
         target_compile_options(${target_name} PRIVATE $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=leak -fsanitize=address>)
@@ -20,9 +20,9 @@ function(set_target_options target_name)
 
         target_link_options(${target_name} PRIVATE $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=address>)
     elseif (CMAKE_C_COMPILER_ID STREQUAL "Intel")
-        set(!PROJECT_NAME:upper!_INTEL 1)
+        set(!PROJECT_NAME=upper!_INTEL 1)
     elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
-        set(!PROJECT_NAME:upper!_MSVC 1)
+        set(!PROJECT_NAME=upper!_MSVC 1)
         include(find_avx)
 
         # 4710 is "Function not inlined", we don't care it pollutes more than tells useful information about the code

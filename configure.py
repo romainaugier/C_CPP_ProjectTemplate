@@ -14,7 +14,7 @@ FORMATTERS = {
 }
 
 def build_variable_pattern(variable_name: str) -> re.Pattern:
-    return re.compile(rf"!({variable_name})(:[a-z]+)?!")
+    return re.compile(rf"!({variable_name})(\=[a-z]+)?!")
 
 def replace_variables_in_file(file_path: str, variables: typing.List[typing.Tuple[re.Pattern, str]]) -> bool:
     if not os.path.exists(file_path):
@@ -31,7 +31,7 @@ def replace_variables_in_file(file_path: str, variables: typing.List[typing.Tupl
                 fmt = m.group(2)
 
                 if fmt is not None:
-                    fmt = fmt.replace(':', '')
+                    fmt = fmt.replace('=', '')
 
                 new_value = FORMATTERS.get(fmt, lambda s: s)(value)
 

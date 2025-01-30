@@ -7,18 +7,18 @@ include(target_options)
 
 file(GLOB_RECURSE src_files *.!LANG_SOURCE_EXT!)
 
-add_definitions(-D!PROJECT_NAME:upper!_BUILD_SHARED)
-
 add_library(${PROJECT_NAME} SHARED ${src_files})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
-set_target_properties(${PROJECT_NAME} PROPERTIES !LANG_CMAKE_ALIAS:upper!_STANDARD !LANG_STANDARD!)
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}$<$<CONFIG:Debug>:d>")
+set_target_properties(${PROJECT_NAME} PROPERTIES !LANG_CMAKE_ALIAS=upper!_STANDARD !LANG_STANDARD!)
+set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
 
 set_target_options(${PROJECT_NAME})
 
 if(WIN32)
     set_target_properties(${PROJECT_NAME} PROPERTIES CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 endif()
+
+target_compile_definitions(${PROJECT_NAME} PUBLIC !PROJECT_NAME=upper!_BUILD_SHARED)
 
 if(UNIX)
     target_compile_options(${PROJECT_NAME} PUBLIC "-pthread")
@@ -37,11 +37,13 @@ install(
     EXPORT "${PROJECT_NAME}Targets"
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
 install(
     DIRECTORY "${PROJECT_SOURCE_DIR}/include/${PROJECT_NAME}"
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    FILES_MATCHING PATTERN "*.h"
 )
 
 install(

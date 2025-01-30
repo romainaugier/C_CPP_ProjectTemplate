@@ -8,7 +8,7 @@ file(GLOB_RECURSE TEST_FILES *.!LANG_SOURCE_EXT!)
 
 foreach(test_file ${TEST_FILES})
     get_filename_component(TESTNAME ${test_file} NAME_WLE)
-    message(STATUS "Adding !PROJECT_NAME:lower! test : ${TESTNAME}")
+    message(STATUS "Adding !PROJECT_NAME=lower! test : ${TESTNAME}")
 
     add_executable(${TESTNAME} ${test_file})
     set_target_options(${TESTNAME})
@@ -43,7 +43,7 @@ if(CMAKE_C_COMPILER_ID STREQUAL "MSVC")
     )
 endif()
 
-# Copy !PROJECT_NAME:lower! shared lib to the tests bin directory
+# Copy !PROJECT_NAME=lower! shared lib to the tests bin directory
 
 add_custom_command(
     TARGET ${TESTNAME} POST_BUILD
