@@ -121,6 +121,12 @@ if __name__ == "__main__":
         (build_variable_pattern("LANG_STANDARD"), str(lang_version)),
     ]
 
+    git_dir = f"{os.curdir}/.git"
+    
+    if os.path.exists(git_dir):
+        print("Removing .git directory")
+        shutil.rmtree(git_dir)
+
     paths_to_replace = list()
 
     for root, dirs, files in os.walk(os.curdir):
