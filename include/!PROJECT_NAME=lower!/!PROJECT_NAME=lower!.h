@@ -41,9 +41,15 @@
                               !PROJECT_NAME=upper!_STRIFY_MACRO(!PROJECT_NAME=upper!_VERSION_PATCH)"." \
                               !PROJECT_NAME=upper!_STRIFY_MACRO(!PROJECT_NAME=upper!_VERSION_REVISION)
 
+#if defined(__cplusplus)
 #include <cstddef>
 #include <cstdint>
 #include <cassert>
+#else
+#include <stddef.h>
+#include <stdint.h>
+#include <assert.h>
+#endif /* defined(__cplusplus) */
 
 #if INTPTR_MAX == INT64_MAX || defined(__x86_64__)
 #define !PROJECT_NAME=upper!_X64
