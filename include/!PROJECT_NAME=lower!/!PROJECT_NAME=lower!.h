@@ -192,13 +192,13 @@
             if(exit) return std::exit(1);                                           \
         }                                                                           
 #else
-#define !PROJECT_NAME=upper!_ATEXIT_REGISTER(func, exit)                            \
-        int res_##func = atexit(func);                                              \
-        if(res_##func != 0)                                                         \
-        {                                                                           \
-            fprintf(stderr, "Cannot register function \""#func"\" in atexit");      \
-            if(exit) return exit(1);                                                \
-        }                                                                           
+#define !PROJECT_NAME=upper!_ATEXIT_REGISTER(__func__, __exit__)                   \
+        int res_##__func__ = atexit(__func__);                                     \
+        if(res_##__func__ != 0)                                                    \
+        {                                                                          \
+            fprintf(stderr, "Cannot register function \""#__func__"\" in atexit"); \
+            if(__exit__) exit(1);                                                  \
+        }                                                                                                                                                   
 #endif /* defined(__cplusplus) */
 
 #endif /* !defined(__!PROJECT_NAME=upper!) */
