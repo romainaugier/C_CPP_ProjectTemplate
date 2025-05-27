@@ -64,6 +64,9 @@
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN
 #endif /* !defined(WIN32_LEAN_AND_MEAN) */
+#if !defined(NOMINMAX)
+#define NOMINMAX
+#endif /* !defined(NOMINMAX) */
 #if defined(!PROJECT_NAME=upper!_X64)
 #define !PROJECT_NAME=upper!_PLATFORM_STR "WIN64"
 #else
