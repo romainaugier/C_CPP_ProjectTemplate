@@ -93,6 +93,7 @@ def replace_variables_in_path(file_path: str, variables: typing.List[typing.Tupl
 
 def remove_dir(dir_path: str) -> None:
     if platform.system() == "Windows":
+        dir_path = dir_path.replace('/', '\\')
         os.system(f"rmdir /s /q {dir_path}")
     elif platform.system() == "Linux":
         os.system(f"rm -rf {dir_path}")
