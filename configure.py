@@ -3,7 +3,7 @@ import sys
 import re
 import typing
 import datetime
-import shutil
+import platform
 
 LANGUAGE_PATTERN = re.compile(r"(CP?P?)(\d+)")
 
@@ -11,6 +11,7 @@ FORMATTERS = {
     "default": lambda s: s,
     "lower": lambda s: s.lower(),
     "upper": lambda s: s.upper(),
+    "title": lambda s: s.title(),
 }
 
 def build_variable_pattern(variable_name: str) -> re.Pattern:
@@ -90,6 +91,14 @@ def replace_variables_in_path(file_path: str, variables: typing.List[typing.Tupl
 
     return True
 
+def remove_dir(dir_path: str) -> None:
+    if platform.system() == "Windows":
+        os.system(f"rmdir /s /q {dir_path}")
+    elif platform.system() == "Linux":
+        os.system(f"rm -rf {dir_path}")
+    else:
+        raise NotImplementedError(f"remove_dir not implement for current platform: {platform.system()}")
+
 if __name__ == "__main__":
     if len(sys.argv) < 3:
         print("Usage: python configure.py <project_name> <language_standard>")
@@ -116,6 +125,7 @@ if __name__ == "__main__":
         (build_variable_pattern("PROJECT_NAME"), project_name),
         (build_variable_pattern("YEAR"), str(datetime.datetime.now().year)),
         (build_variable_pattern("AUTHOR"), "Romain Augier"),
+        (build_variable_pattern("LANG_NAME"), "C" if lang == "C" else "CPP"),
         (build_variable_pattern("LANG_SOURCE_EXT"), lang.lower()),
         (build_variable_pattern("LANG_CMAKE_ALIAS"), "C" if lang == "C" else "CXX"),
         (build_variable_pattern("LANG_STANDARD"), str(lang_version)),
@@ -125,7 +135,7 @@ if __name__ == "__main__":
     
     if os.path.exists(git_dir):
         print("Removing .git directory")
-        shutil.rmtree(git_dir)
+        remove_dir(git_dir)
 
     paths_to_replace = list()
 

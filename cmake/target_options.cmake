@@ -4,7 +4,7 @@
 
 function(set_target_options target_name)
     if(CMAKE_C_COMPILER_ID STREQUAL "Clang")
-        set(ROMANO_CLANG 1)
+        set(!PROJECT_NAME=upper!_CLANG 1)
         set(CMAKE_C_FLAGS "-Wall -pedantic-errors")
 
         set(COMPILE_OPTIONS -Wall $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=leak -fsanitize=address> $<$<CONFIG:Release,RelWithDebInfo>:-O3> -mavx2 -mfma)
@@ -14,7 +14,7 @@ function(set_target_options target_name)
 
         target_link_options(${target_name} PRIVATE $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=address>)
     elseif (CMAKE_C_COMPILER_ID STREQUAL "GNU")
-        set(ROMANO_GCC 1)
+        set(!PROJECT_NAME=upper!_GCC 1)
 
         set(COMPILE_OPTIONS -D_FORTIFY_SOURCES=2 -pipe -Wall -pedantic-errors $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=leak -fsanitize=address> $<$<CONFIG:Release,RelWithDebInfo>:-O3 -ftree-vectorizer-verbose=2> -mveclibabi=svml -mavx2 -mfma)
 
@@ -23,9 +23,9 @@ function(set_target_options target_name)
         
         target_link_options(${target_name} PRIVATE $<$<CONFIG:Debug,RelWithDebInfo>:-fsanitize=address>)
     elseif (CMAKE_C_COMPILER_ID STREQUAL "Intel")
-        set(ROMANO_INTEL 1)
+        set(!PROJECT_NAME=upper!_INTEL 1)
     elseif (CMAKE_C_COMPILER_ID STREQUAL "MSVC")
-        set(ROMANO_MSVC 1)
+        set(!PROJECT_NAME=upper!_MSVC 1)
         include(find_avx)
 
         # 4710 is "Function not inlined", we don't care it pollutes more than tells useful information about the code
